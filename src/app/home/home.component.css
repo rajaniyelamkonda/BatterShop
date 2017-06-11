@@ -1,0 +1,20 @@
+.mainImage{
+    display:table;
+    margin: 0 auto;
+    width : 80%;
+    height:80%;
+}
+.img-responsive{
+    position:relative;
+    width:50%;
+    height:50%;
+    display: block;
+    margin: 0 auto;
+}
+.lbl{
+    text-align: center;
+}
+.addDateButtons{
+    display: table;
+    margin:0 auto;
+}

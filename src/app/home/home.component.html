@@ -1,0 +1,61 @@
+<ngb-tabset>
+  <ngb-tab>
+    <ng-template ngbTabTitle><b>Batter Items</b></ng-template>
+    <ng-template ngbTabContent>
+      <div>
+        <div class="mainImage">
+          <div>
+            <img src="../assets/images/Idly.jpg" class="img-responsive" alt="Idly-image">
+          </div>
+          <div>
+            <p class="lbl"><b>Idly</b></p>
+          </div>
+        </div>
+        <div class="container-fluid" *ngFor="let order of orders" [style.display]="inputdisp">
+          <div class="row">
+            <div class="col-lg-4 offset-lg-4" style="display:box; border:1px solid blue">
+              <div class="row">
+                <div class="col-lg-1 offset-lg-1">
+                  {{monthName[order.date.month]}}
+                </div>
+                <div class="col-lg-1 offset-lg-1">
+                  {{order.date.day}}
+                </div>
+                <div class="col-lg-1 offset-lg-3">
+                  <button type="button" (click)="deletePacket(order)">-</button>
+                </div>
+                <div class="col-lg-1">
+                  {{order.packets}}
+                </div>
+                <div class="col-lg-1">
+                  <button type="button" (click)="addPackets(order)">+</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div [style.display]="buttonCartdisp" class="addDateButtons col-lg-1 offset-lg-5">
+          <button type="button" class="CenterButton btn btn-outline-primary" (click)="open()">Add To Cart</button>
+        </div>
+        <div [style.display]="buttonDatedisp" class="addDateButtons col-lg-2 offset-lg-5">
+          <button type="button" class=" CenterButton btn btn-outline-primary" (click)="open()">Add Another Date</button>
+        </div>
+      </div>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle style="background-color:green"><b>Flour Items</b></ng-template>
+    <ng-template ngbTabContent #tab2>
+      <div class="image1">
+        <img src="./assets/images/poori.jpg" class="img-responsive" alt="Poori-image">
+        <p class="lbl"><b>Poori</b></p>
+      </div>
+
+      <div class="image1">
+        <img src="./assets/images/chapathi.jpg" class="img-responsive" alt="Roti-image">
+        <p class="lbl"><b>Roti</b></p>
+      </div>
+
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>
