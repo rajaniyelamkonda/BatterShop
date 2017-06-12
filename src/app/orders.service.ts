@@ -5,18 +5,23 @@ import { OrderClass} from './orderClass.component';
 export class OrdersService {
 
   constructor() { }
-  orders : OrderClass[];
+  orders : OrderClass[] = [];
   getOrders():OrderClass[]{
     return this.orders;
   }
   addOrder(order) :void{
     this.orders.push(order);
   }
-  deleteOrder(ord) : void{
-    this.orders.pop();
+  deleteOrder(order) : void{
+    var ind = this.orders.indexOf(order);
+    this.orders.splice(ind,1);
   }
-  updateOrder(order) : void{
-    
+  incrementOrderPacket(order):void{
+    var ind = this.orders.indexOf(order);
+    this.orders[ind].packets++;
   }
-
+  decrementOrderPacket(order):void{
+    var ind = this.orders.indexOf(order);
+    this.orders[ind].packets--;
+  }
 }

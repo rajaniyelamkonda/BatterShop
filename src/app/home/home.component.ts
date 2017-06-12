@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import {NgbDateStruct, NgbModal, NgbActiveModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { NdbDateComponent } from './date.component';
 import { Router} from '@angular/router';
 import { OrderClass} from '../orderClass.component';
+import {OrdersService} from '../orders.service';
 
 const now = new Date();
 
@@ -13,19 +14,17 @@ const now = new Date();
 })
 export class MenuComponent {
 
-  orders: OrderClass[] = [];
-  inputdisp = "none";
+  orders: OrderClass[]=this.ordersService.getOrders();
   buttonCartdisp = "block";
   buttonDatedisp = "none";
   newOrder: OrderClass;
   monthName = ["January", "Febraury", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 
-  constructor(private modal: NgbModal,private router: Router) {}
-
+  constructor(private modal: NgbModal,private router: Router, private ordersService : OrdersService) { }
+  
   AddDateAndPackets(order: OrderClass) {
-    this.orders.push(order);
-    this.inputdisp = "block";
+    this.ordersService.addOrder(order);
     console.log("adding ordder");
     if (this.orders.length != 0) {
       this.buttonCartdisp = "none";
@@ -36,6 +35,26 @@ export class MenuComponent {
       this.buttonDatedisp = "none"
     }
 
+  }
+    deletePacket(order: OrderClass): void {
+    var ind = this.orders.indexOf(order);
+    this.ordersService.decrementOrderPacket(this.orders[ind]);
+
+    if (order.packets == 0) {
+      this.ordersService.deleteOrder(order);
+    }
+    if (this.orders.length != 0) {
+      this.buttonCartdisp = "none";
+      this.buttonDatedisp = "block";
+    }
+    else {
+      this.buttonCartdisp = "block";
+      this.buttonDatedisp = "none";
+    }
+  }
+  addPackets(order):void{
+    var ind = this.orders.indexOf(order);
+    this.ordersService.incrementOrderPacket(this.orders[ind]);
   }
   open() {
     this.newOrder = new OrderClass();
@@ -52,25 +71,6 @@ export class MenuComponent {
     }, (reason) => {
       console.log(`Closed with reason : ${reason}`);
     });
-  }
-  deletePacket(order: OrderClass): void {
-    var ind = this.orders.indexOf(order);
-    this.orders[ind].packets = this.orders[ind].packets - 1;
-
-    if (order.packets == 0) {
-      this.orders.splice(ind, 1);
-    }
-    if (this.orders.length != 0) {
-      this.buttonCartdisp = "none";
-      this.buttonDatedisp = "block";
-    }
-    else {
-      this.buttonCartdisp = "block";
-      this.buttonDatedisp = "none";
-    }
-  }
-  addPackets(order: OrderClass): void {
-    order.packets++;
   }
 }
 

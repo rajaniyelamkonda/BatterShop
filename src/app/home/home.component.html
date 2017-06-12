@@ -11,7 +11,7 @@
             <p class="lbl"><b>Idly</b></p>
           </div>
         </div>
-        <div class="container-fluid" *ngFor="let order of orders" [style.display]="inputdisp">
+        <div class="container-fluid" *ngFor="let order of orders">
           <div class="row">
             <div class="col-lg-4 offset-lg-4" style="display:box; border:1px solid blue">
               <div class="row">
@@ -28,7 +28,7 @@
                   {{order.packets}}
                 </div>
                 <div class="col-lg-1">
-                  <button type="button" (click)="addPackets(order)">+</button>
+                  <button type = "button" (click)="addPackets(order)">+</button>
                 </div>
               </div>
             </div>
